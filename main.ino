@@ -179,7 +179,7 @@ truutime1 = millis();
                   delay(50);
           if (Hochdruckschalter == LOW)  // Bedingung zum Abbruch der Schleife
           {              
-          Serial.println("Hochdruckschalter LOW");
+          Serial.println("Hochdruckschalter LOW wie erwartet ");
           break;
           }
         }
