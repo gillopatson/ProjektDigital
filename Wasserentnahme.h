@@ -34,7 +34,7 @@ pinMode(_Hochdruckschalter, INPUT);
 void Entnahme(){
 
     
-  Serial.println("TEST_SERIAL_PRINT");
+  Serial.println("START WASSERENTNAHME");
   _Niederdruckschalter = digitalRead(12);
 
   

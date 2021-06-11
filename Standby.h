@@ -32,7 +32,7 @@ pinMode(_Spuelventil, OUTPUT);
      digitalWrite (_Pumpe, LOW); //Pumpe an
    digitalWrite (_Uvclampe, LOW); // Uvclampe an
      digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-    
+    delay(50);
     }
 
  };
