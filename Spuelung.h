@@ -43,7 +43,7 @@ while(_Niederdruckschalter == HIGH){
       digitalWrite (_Pumpe, LOW); //Pumpe an
       digitalWrite (_Uvclampe, LOW); // Uvclampe an
       digitalWrite (_Spuelventil, HIGH); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-       Serial.println("OKAY");
+       Serial.println("OKAY1");
        delay(5000);
 
 
