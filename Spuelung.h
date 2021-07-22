@@ -1,85 +1,86 @@
 
 
-class Spuelung{
-  
-   int _Hauptventil;
-  int _Drainventil;              // Variable die in meiner Klassen benutzt werden
-  int _Pumpe;
-  int _Uvclampe;
-  int _Spuelventil;
-  int _Niederdruckschalter;
-  int _Hochdruckschalter;
-  unsigned long _counter;
- public:
+class Spuelung {
 
-  Spuelung(int Hauptventil, int Drainventil, int Pumpe, int Spuelventil, int Uvclampe, int Niederdruckschalter, int Hochdruckschalter, int counter ){            // Konstruktor
+    int _Hauptventil;
+    int _Drainventil;              // Variable die in meiner Klassen benutzt werden
+    int _Pumpe;
+    int _Uvclampe;
+    int _Spuelventil;
+    int _Niederdruckschalter;
+    int _Hochdruckschalter;
+    unsigned long _counter;
+  public:
 
-_Hauptventil = Hauptventil;
-_Drainventil = Drainventil;
-_Pumpe = Pumpe;
-_Uvclampe = Uvclampe;
-_Spuelventil = Spuelventil;
-_Niederdruckschalter =  Niederdruckschalter;
-_Hochdruckschalter = Hochdruckschalter;
-_counter = counter;
+    Spuelung(int Hauptventil, int Drainventil, int Pumpe, int Spuelventil, int Uvclampe, int Niederdruckschalter, int Hochdruckschalter, int counter ) {           // Konstruktor
 
-pinMode(_Hauptventil, OUTPUT);
-pinMode( _Drainventil, OUTPUT);
-pinMode(_Pumpe, OUTPUT);
-pinMode(_Uvclampe, OUTPUT); 
-pinMode(_Spuelventil, OUTPUT);
-pinMode(_Niederdruckschalter, INPUT);
-pinMode(_Hochdruckschalter, INPUT);
+      _Hauptventil = Hauptventil;
+      _Drainventil = Drainventil;
+      _Pumpe = Pumpe;
+      _Uvclampe = Uvclampe;
+      _Spuelventil = Spuelventil;
+      _Niederdruckschalter =  Niederdruckschalter;
+      _Hochdruckschalter = Hochdruckschalter;
+      _counter = counter;
 
-  }
-  
- void Spuelvorgang(){
-_counter = millis();
-_Niederdruckschalter = digitalRead(12);
-while(_Niederdruckschalter == HIGH){
+      pinMode(_Hauptventil, OUTPUT);
+      pinMode( _Drainventil, OUTPUT);
+      pinMode(_Pumpe, OUTPUT);
+      pinMode(_Uvclampe, OUTPUT);
+      pinMode(_Spuelventil, OUTPUT);
+      pinMode(_Niederdruckschalter, INPUT);
+      pinMode(_Hochdruckschalter, INPUT);
+
+    }
+
+    void Spuelvorgang() {
+      _counter = millis();
+      _Niederdruckschalter = digitalRead(12);
+      while (_Niederdruckschalter == HIGH) {
 
         digitalWrite (_Hauptventil, LOW); //Hauptventil auf
-      digitalWrite (_Drainventil, HIGH); //Drainventil auf
-      digitalWrite (_Pumpe, LOW); //Pumpe an
-      digitalWrite (_Uvclampe, LOW); // Uvclampe an
-      digitalWrite (_Spuelventil, HIGH); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-       Serial.println("OKAYYYY");
-       delay(5000);
+        digitalWrite (_Drainventil, HIGH); //Drainventil auf
+        digitalWrite (_Pumpe, LOW); //Pumpe an
+        digitalWrite (_Uvclampe, LOW); // Uvclampe an
+        digitalWrite (_Spuelventil, HIGH); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
+        Serial.println("OKAYYYY");
+        delay(5000);
 
 
 
 
 
-    _Niederdruckschalter = digitalRead(12);
-  if(_Niederdruckschalter == LOW){
+        _Niederdruckschalter = digitalRead(12);
+        if (_Niederdruckschalter == LOW) {
           digitalWrite (_Hauptventil, LOW); //Hauptventil auf
-         digitalWrite (_Drainventil,LOW); //Drainventil auf
-         digitalWrite (_Pumpe, LOW); //Pumpe an
-       digitalWrite (_Uvclampe, LOW); // Uvclampe an
-         digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
+          digitalWrite (_Drainventil, LOW); //Drainventil auf
+          digitalWrite (_Pumpe, LOW); //Pumpe an
+          digitalWrite (_Uvclampe, LOW); // Uvclampe an
+          digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
           Serial.println("break condition aus Spülung N");
-         break;
-    }
-_Hochdruckschalter = digitalRead(13);
-     if(_Hochdruckschalter == HIGH){
+          break;
+        }
+        _Hochdruckschalter = digitalRead(13);
+        if (_Hochdruckschalter == HIGH) {
           digitalWrite (_Hauptventil, HIGH); //Hauptventil auf
-         digitalWrite (_Drainventil,HIGH); //Drainventil auf
-         digitalWrite (_Pumpe, HIGH); //Pumpe an
-       digitalWrite (_Uvclampe, HIGH); // Uvclampe an
-         digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
+          digitalWrite (_Drainventil, HIGH); //Drainventil auf
+          digitalWrite (_Pumpe, HIGH); //Pumpe an
+          digitalWrite (_Uvclampe, HIGH); // Uvclampe an
+          digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
           Serial.println("break condition aus Spülung H");
-         break;
+          delay(8000);
+          break;
+        }
+
+
+        if (_counter > 5000) {
+          Serial.println("Die Spülung hat genug lange gedauert");
+          break;
+        }
+
+      }
+
     }
 
- 
-if (_counter > 5000){
-    Serial.println("Die Spülung hat genug lange gedauert");
-    break;
-    }
 
-}
-       
-}
-
-  
 };
