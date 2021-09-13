@@ -1,4 +1,4 @@
-
+//#include "Standby.h"
 
 
 class Wasserentnahme {
@@ -32,9 +32,14 @@ class Wasserentnahme {
     }
 
     void Entnahme() {
-
-
-      Serial.println("START WASSERENTNAHME");
+      
+        digitalWrite (_Hauptventil, HIGH); //Hauptventil auf
+        digitalWrite (_Drainventil, HIGH); //Drainventil auf
+        digitalWrite (_Pumpe, HIGH); //Pumpe an
+        digitalWrite (_Uvclampe, HIGH); // Uvclampe an
+        digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
+        delay(5000);
+        Serial.println("START WASSERENTNAHME");
 
 
 
@@ -49,26 +54,23 @@ class Wasserentnahme {
           digitalWrite (_Pumpe, LOW); //Pumpe an
           digitalWrite (_Uvclampe, LOW); // Uvclampe an
           digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-          Serial.println("break condition aus Wasserentnahme N");
+          Serial.println("Wasserentnahme durch NDS HIGH abgebrochen");
+          delay(5000);
           break;
         }
         _Hochdruckschalter = digitalRead(13);
         if (_Hochdruckschalter == LOW) {
-          digitalWrite (_Hauptventil, LOW); //Hauptventil auf
-          digitalWrite (_Drainventil, LOW); //Drainventil auf
-          digitalWrite (_Pumpe, LOW); //Pumpe an
-          digitalWrite (_Uvclampe, LOW); // Uvclampe an
-          digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-          Serial.println("break condition aus Wasserentnahme H");
+//          digitalWrite (_Hauptventil, LOW); //Hauptventil auf
+//          digitalWrite (_Drainventil, LOW); //Drainventil auf
+//          digitalWrite (_Pumpe, LOW); //Pumpe an
+//          digitalWrite (_Uvclampe, LOW); // Uvclampe an
+//          digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
+          Serial.println("Wasserentnahme durch HDS LOW abgebrochen");
+          delay(5000);
           break;
         }
 
-        digitalWrite (_Hauptventil, HIGH); //Hauptventil auf
-        digitalWrite (_Drainventil, HIGH); //Drainventil auf
-        digitalWrite (_Pumpe, HIGH); //Pumpe an
-        digitalWrite (_Uvclampe, HIGH); // Uvclampe an
-        digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-        delay(5000);
+       
 
       }
     }

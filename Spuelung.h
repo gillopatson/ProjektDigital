@@ -34,16 +34,17 @@ class Spuelung {
     }
 
     void Spuelvorgang() {
-      _counter = millis();
+     
       _Niederdruckschalter = digitalRead(12);
       while (_Niederdruckschalter == HIGH) {
-
+        
+         _counter = millis();
         digitalWrite (_Hauptventil, LOW); //Hauptventil auf
         digitalWrite (_Drainventil, HIGH); //Drainventil auf
         digitalWrite (_Pumpe, LOW); //Pumpe an
         digitalWrite (_Uvclampe, LOW); // Uvclampe an
         digitalWrite (_Spuelventil, HIGH); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-        Serial.println("OKAYYYY");
+        Serial.println("Funktion Spülung");
         delay(5000);
 
 
@@ -57,24 +58,26 @@ class Spuelung {
           digitalWrite (_Pumpe, LOW); //Pumpe an
           digitalWrite (_Uvclampe, LOW); // Uvclampe an
           digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-          Serial.println("break condition aus Spülung N");
+          Serial.println("Funktion spülung wurde wegen NDS LOW");
           break;
         }
         _Hochdruckschalter = digitalRead(13);
         if (_Hochdruckschalter == HIGH) {
-          digitalWrite (_Hauptventil, HIGH); //Hauptventil auf
-          digitalWrite (_Drainventil, HIGH); //Drainventil auf
-          digitalWrite (_Pumpe, HIGH); //Pumpe an
-          digitalWrite (_Uvclampe, HIGH); // Uvclampe an
-          digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
-          Serial.println("break condition aus Spülung H");
-          delay(8000);
+//          digitalWrite (_Hauptventil, HIGH); //Hauptventil auf
+//          digitalWrite (_Drainventil, HIGH); //Drainventil auf
+//          digitalWrite (_Pumpe, HIGH); //Pumpe an
+//          digitalWrite (_Uvclampe, HIGH); // Uvclampe an
+//          digitalWrite (_Spuelventil, LOW); //Spülventil = zu   // der Spüllventil wird eingekeitet wenn Druck = 3 Bar
+          Serial.println("Funktion Spülung wurde wegen HDS HIGH abgebrochen");
+          delay(2000);
+           // _Niederdruckschalter = digitalRead(12);
           break;
         }
 
 
-        if (_counter > 5000) {
-          Serial.println("Die Spülung hat genug lange gedauert");
+        if (_counter > 8000) {
+         // Serial.println("Die Spülung hat genug lange gedauert");
+          delay(5000);
           break;
         }
 
